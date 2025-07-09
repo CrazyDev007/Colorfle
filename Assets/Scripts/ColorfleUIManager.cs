@@ -20,9 +20,9 @@ public class ColorfleUIManager : MonoBehaviour
     void Start()
     {
         SetPaletteButtonColors();
-        if (pieChart != null && gameManager != null)
+        if (pieChart != null && colorSelector != null)
         {
-            Color targetColor = gameManager.GetTargetResultingColor();
+            Color targetColor = colorSelector.targetColorPercentage.color;
             pieChart.SetTargetAndResetGuess(targetColor);
         }
         submitButton.onClick.AddListener(OnSubmitGuess);
@@ -32,15 +32,34 @@ public class ColorfleUIManager : MonoBehaviour
 
     void OnSubmitGuess()
     {
+        // Collect selected colors
         Color[] guessColors = new Color[3];
         int[] guessPercents = new int[3];
+        int selected = 0;
         for (int i = 0; i < 3; i++)
         {
-            // TODO: Replace with actual UI selection logic
-            // Example: guessColors[i] = colorSelector.colorPercentages[selectedIndices[i]].color;
-            guessColors[i] = Color.white; // Placeholder            
+            if (selectedColorIndices[i] >= 0 && colorSelector != null)
+            {
+                guessColors[i] = colorSelector.colorPercentages[selectedColorIndices[i]].color;
+                // TODO: Replace with actual user input for percentages if available
+                guessPercents[i] = (i < 2) ? 33 : 34; // Default: 33, 33, 34
+                selected++;
+            }
+            else
+            {
+                guessColors[i] = Color.white;
+                guessPercents[i] = 0;
+            }
         }
-        gameManager.SubmitGuess(guessColors, guessPercents);
+        if (selected < 3)
+        {
+            statusText.text = "Please select 3 colors before submitting your guess.";
+            return;
+        }
+        var feedback = gameManager.SubmitGuess(guessColors, guessPercents);
+        // Optionally, show the resulting blended color
+        Color result = gameManager.CalculateResultingColor(guessColors, guessPercents);
+        statusText.text = $"Guess submitted. Resulting color: RGB({(int)(result.r * 255)}, {(int)(result.g * 255)}, {(int)(result.b * 255)})";
     }
 
     void ShowFeedback(ColorfleGameManager.FeedbackType[] feedback)

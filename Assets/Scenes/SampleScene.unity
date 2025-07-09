@@ -2626,22 +2626,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c764bacd4f1864385f848722fadaff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetColorPercentage:
+    color: {r: 0.42352942, g: 0.54509807, b: 0.7019608, a: 1}
+    percentage: 100
   colorPercentages:
-  - color: {r: 1, g: 0, b: 0, a: 1}
+  - color: {r: 0.8627451, g: 0.078431375, b: 0.23529412, a: 1}
     percentage: 40
-  - color: {r: 0, g: 1, b: 0.0303514, a: 1}
+  - color: {r: 0.05882353, g: 0.32156864, b: 0.7294118, a: 1}
+    percentage: 45
+  - color: {r: 0.3137255, g: 0.78431374, b: 0.47058824, a: 1}
     percentage: 30
-  - color: {r: 0, g: 0.031424046, b: 1, a: 1}
+  - color: {r: 1, g: 0.7490196, b: 0, a: 1}
+    percentage: 15
+  - color: {r: 0.21176471, g: 0.27058825, b: 0.30980393, a: 1}
     percentage: 20
-  - color: {r: 1, g: 0.9534184, b: 0, a: 1}
-    percentage: 10
-  - color: {r: 0.4811321, g: 0.47119972, b: 0.27006942, a: 1}
-    percentage: 10
-  - color: {r: 0.030975528, g: 0.3679245, b: 0.012148458, a: 1}
-    percentage: 10
-  - color: {r: 0.7075472, g: 0.5204358, b: 0.4772606, a: 1}
-    percentage: 10
-  - color: {r: 0.094918124, g: 0.6380749, b: 0.745283, a: 1}
+  - color: {r: 0.2509804, g: 0.8784314, b: 0.8156863, a: 1}
+    percentage: 5
+  - color: {r: 0.78431374, g: 0.63529414, b: 0.78431374, a: 1}
+    percentage: 25
+  - color: {r: 1, g: 0.96862745, b: 0, a: 1}
     percentage: 10
 --- !u!114 &1260311652 stripped
 MonoBehaviour:
@@ -3774,15 +3777,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4278271269508760109, guid: bb66388641ef67549a09362290100e19, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 0.7019608
       objectReference: {fileID: 0}
     - target: {fileID: 4278271269508760109, guid: bb66388641ef67549a09362290100e19, type: 3}
       propertyPath: m_Color.g
-      value: 0.027940515
+      value: 0.54509807
       objectReference: {fileID: 0}
     - target: {fileID: 4278271269508760109, guid: bb66388641ef67549a09362290100e19, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.42352942
       objectReference: {fileID: 0}
     - target: {fileID: 4278271269508760109, guid: bb66388641ef67549a09362290100e19, type: 3}
       propertyPath: m_FillAmount

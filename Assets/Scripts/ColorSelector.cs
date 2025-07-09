@@ -12,6 +12,7 @@ public class ColorPercentage
 
 public class ColorSelector : MonoBehaviour
 {
+    public ColorPercentage targetColorPercentage;
     public List<ColorPercentage> colorPercentages;
 
     public Color GetRandomColor()
