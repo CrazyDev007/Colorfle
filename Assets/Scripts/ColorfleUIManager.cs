@@ -5,19 +5,21 @@ using UnityEngine.UI;
 public class ColorfleUIManager : MonoBehaviour
 {
     public ColorfleGameManager gameManager;
-    public TMP_InputField[] percentInputs; // 3 input fields for percents
     public Button submitButton;
     public TextMeshProUGUI[] feedbackTexts; // 3 texts for feedback
     public TextMeshProUGUI attemptsText;
     public TextMeshProUGUI statusText;
     public ColorSelector colorSelector; // Reference to ColorSelector
     public Image[] guessGridSlots; // Assign 3 UI Image components for guess grid slots in the Inspector
+    public PieChart pieChart; // Reference to PieChart
+    public Image[] paletteButtons; // Assign palette button images in Inspector
 
     private int[] selectedColorIndices = new int[3] { -1, -1, -1 }; // Stores indices of selected colors
     private int selectionCount = 0;
 
     void Start()
     {
+        SetPaletteButtonColors();
         submitButton.onClick.AddListener(OnSubmitGuess);
         gameManager.onGuessEvaluated.AddListener(ShowFeedback);
         gameManager.onGameOver.AddListener(OnGameOver);
@@ -31,8 +33,7 @@ public class ColorfleUIManager : MonoBehaviour
         {
             // TODO: Replace with actual UI selection logic
             // Example: guessColors[i] = colorSelector.colorPercentages[selectedIndices[i]].color;
-            guessColors[i] = Color.white; // Placeholder
-            int.TryParse(percentInputs[i].text, out guessPercents[i]);
+            guessColors[i] = Color.white; // Placeholder            
         }
         gameManager.SubmitGuess(guessColors, guessPercents);
     }
@@ -74,6 +75,12 @@ public class ColorfleUIManager : MonoBehaviour
         }
         selectedColorIndices[selectionCount] = colorIndex;
         selectionCount++;
+        // Call PieChart.SetGuessColors with the selected color
+        if (pieChart != null)
+        {
+            var color = colorSelector.colorPercentages[colorIndex].color;
+            pieChart.SetGuessColors(color);
+        }
         UpdateGuessGridUI();
         var colorInfo = colorSelector.colorPercentages[colorIndex];
         var c = colorInfo.color;
@@ -97,6 +104,15 @@ public class ColorfleUIManager : MonoBehaviour
                     guessGridSlots[i].color = Color.white; // Default/empty slot color
                 }
             }
+        }
+    }
+
+    public void SetPaletteButtonColors()
+    {
+        if (paletteButtons == null || colorSelector == null) return;
+        for (int i = 0; i < paletteButtons.Length && i < colorSelector.colorPercentages.Count; i++)
+        {
+            paletteButtons[i].color = colorSelector.colorPercentages[i].color;
         }
     }
 }
