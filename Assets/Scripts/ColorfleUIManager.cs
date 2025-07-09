@@ -20,6 +20,11 @@ public class ColorfleUIManager : MonoBehaviour
     void Start()
     {
         SetPaletteButtonColors();
+        if (pieChart != null && gameManager != null)
+        {
+            Color targetColor = gameManager.GetTargetResultingColor();
+            pieChart.SetTargetAndResetGuess(targetColor);
+        }
         submitButton.onClick.AddListener(OnSubmitGuess);
         gameManager.onGuessEvaluated.AddListener(ShowFeedback);
         gameManager.onGameOver.AddListener(OnGameOver);
@@ -113,6 +118,36 @@ public class ColorfleUIManager : MonoBehaviour
         for (int i = 0; i < paletteButtons.Length && i < colorSelector.colorPercentages.Count; i++)
         {
             paletteButtons[i].color = colorSelector.colorPercentages[i].color;
+        }
+    }
+
+    public void OnDeleteLastGuessColor()
+    {
+        if (selectionCount <= 0)
+            return;
+        selectionCount--;
+        selectedColorIndices[selectionCount] = -1;
+        // Reset the corresponding guess grid slot
+        if (guessGridSlots != null && selectionCount < guessGridSlots.Length)
+            guessGridSlots[selectionCount].color = Color.white;
+        // Reset the pie chart guess index and re-apply remaining colors
+        if (pieChart != null && colorSelector != null)
+        {
+            pieChart.ResetGuessIndex();
+            // Set all guessImage slots to gray
+            foreach (var img in pieChart.GetType().GetField("guessImage", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(pieChart) as Image[])
+            {
+                if (img != null)
+                    img.color = Color.gray;
+            }
+            for (int i = 0; i < selectionCount; i++)
+            {
+                if (selectedColorIndices[i] >= 0)
+                {
+                    var color = colorSelector.colorPercentages[selectedColorIndices[i]].color;
+                    pieChart.SetGuessColors(color);
+                }
+            }
         }
     }
 }

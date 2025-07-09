@@ -20,4 +20,23 @@ public class PieChart : MonoBehaviour
     {
         currentIndex = 0;
     }
+
+    public void SetTargetAndResetGuess(Color targetColor)
+    {
+        if (targetImage != null)
+        {
+            Color opaqueTarget = targetColor;
+            opaqueTarget.a = 1f;
+            targetImage.color = opaqueTarget;
+        }
+        if (guessImage != null)
+        {
+            foreach (var img in guessImage)
+            {
+                if (img != null)
+                    img.color = Color.gray;
+            }
+        }
+        ResetGuessIndex();
+    }
 }

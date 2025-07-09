@@ -242,10 +242,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 916077601}
-  percentInputs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   submitButton: {fileID: 1225176711}
   feedbackTexts:
   - {fileID: 0}
@@ -656,7 +652,7 @@ GameObject:
   - component: {fileID: 645081225}
   - component: {fileID: 645081224}
   m_Layer: 5
-  m_Name: Clear Button
+  m_Name: Del Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -725,7 +721,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 645081225}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 10047373}
+        m_TargetAssemblyTypeName: ColorfleUIManager, Assembly-CSharp
+        m_MethodName: OnDeleteLastGuessColor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &645081225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2200,6 +2208,10 @@ PrefabInstance:
       value: ColorfleUIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -2228,6 +2240,10 @@ PrefabInstance:
       value: ColorfleUIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -2256,6 +2272,10 @@ PrefabInstance:
       value: ColorfleUIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -2282,6 +2302,10 @@ PrefabInstance:
     - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ColorfleUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -2698,7 +2722,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Clear
+  m_text: DEL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3972,7 +3996,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 0
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
