@@ -11,6 +11,7 @@ public class ColorfleUIManager : MonoBehaviour
     public TextMeshProUGUI attemptsText;
     public TextMeshProUGUI statusText;
     public ColorSelector colorSelector; // Reference to ColorSelector
+    public Image[] guessGridSlots; // Assign 3 UI Image components for guess grid slots in the Inspector
 
     private int[] selectedColorIndices = new int[3] { -1, -1, -1 }; // Stores indices of selected colors
     private int selectionCount = 0;
@@ -82,16 +83,20 @@ public class ColorfleUIManager : MonoBehaviour
     // Placeholder: update the guess grid UI to show selected colors
     private void UpdateGuessGridUI()
     {
-        // TODO: Implement actual guess grid UI update logic
-        // For now, just log selected indices
-        string msg = "Guess Grid: ";
+        // Update the guess grid UI to show selected colors
         for (int i = 0; i < 3; i++)
         {
-            if (selectedColorIndices[i] >= 0)
-                msg += $"[{selectedColorIndices[i] + 1}] ";
-            else
-                msg += "[ ] ";
+            if (guessGridSlots != null && i < guessGridSlots.Length)
+            {
+                if (selectedColorIndices[i] >= 0 && colorSelector != null)
+                {
+                    guessGridSlots[i].color = colorSelector.colorPercentages[selectedColorIndices[i]].color;
+                }
+                else
+                {
+                    guessGridSlots[i].color = Color.white; // Default/empty slot color
+                }
+            }
         }
-        Debug.Log(msg);
     }
 }
