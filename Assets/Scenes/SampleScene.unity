@@ -242,10 +242,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 916077601}
-  colorDropdowns:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   percentInputs:
   - {fileID: 0}
   - {fileID: 0}
@@ -257,6 +253,7 @@ MonoBehaviour:
   - {fileID: 0}
   attemptsText: {fileID: 1739003447}
   statusText: {fileID: 708347745}
+  colorSelector: {fileID: 1244919664}
 --- !u!1 &248060835
 GameObject:
   m_ObjectHideFlags: 0
@@ -1431,13 +1428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c20f77dc70bbf4499979a666ce0ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  palette:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0.064979605, a: 1}
-  - {r: 0.5617372, g: 0.13536847, b: 0.735849, a: 1}
-  - {r: 0.21266466, g: 0.54181474, b: 0.764151, a: 1}
-  - {r: 0.7924528, g: 0.763436, b: 0.09344961, a: 1}
-  - {r: 1, g: 0.36770073, b: 0, a: 1}
   maxAttempts: 6
   onGuessEvaluated:
     m_PersistentCalls:
@@ -1445,6 +1435,7 @@ MonoBehaviour:
   onGameOver:
     m_PersistentCalls:
       m_Calls: []
+  colorSelector: {fileID: 1244919664}
 --- !u!4 &916077602
 Transform:
   m_ObjectHideFlags: 0
@@ -2129,6 +2120,118 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1244919662}
     m_Modifications:
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 10047373}
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPaletteColorClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ColorfleUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 10047373}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPaletteColorClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ColorfleUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 10047373}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPaletteColorClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ColorfleUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 10047373}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPaletteColorClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ColorfleUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4678691092725608328, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_Color.b
       value: 0.93016386
@@ -2377,6 +2480,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1244919662}
   - component: {fileID: 1244919663}
+  - component: {fileID: 1244919664}
   m_Layer: 5
   m_Name: Palette Grid
   m_TagString: Untagged
@@ -2431,6 +2535,27 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1244919664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244919661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c764bacd4f1864385f848722fadaff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorPercentages:
+  - color: {r: 1, g: 0, b: 0, a: 1}
+    percentage: 40
+  - color: {r: 0, g: 1, b: 0.0303514, a: 1}
+    percentage: 30
+  - color: {r: 0, g: 0.031424046, b: 1, a: 1}
+    percentage: 20
+  - color: {r: 1, g: 0.9534184, b: 0, a: 1}
+    percentage: 10
 --- !u!1 &1371507584
 GameObject:
   m_ObjectHideFlags: 0
@@ -4182,6 +4307,118 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1244919662}
     m_Modifications:
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 10047373}
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPaletteColorClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ColorfleUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 10047373}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPaletteColorClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ColorfleUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 10047373}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPaletteColorClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ColorfleUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 10047373}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPaletteColorClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ColorfleUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4678691092725608328, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_Color.b
       value: 0

@@ -10,12 +10,6 @@ using UnityEngine.Events;
 public class ColorfleGameManager : MonoBehaviour
 {
     /// <summary>
-    /// The palette of available colors to choose from.
-    /// </summary>
-    [Tooltip("Available colors to choose from.")]
-    public Color[] palette;
-
-    /// <summary>
     /// The maximum number of guesses allowed.
     /// </summary>
     [Tooltip("Number of guesses allowed.")]
@@ -40,7 +34,9 @@ public class ColorfleGameManager : MonoBehaviour
 
     private Color[] targetColors = new Color[3];
     private int[] targetPercents = new int[3];
+    private Color targetResultingColor; // The blended result color
     private int attempts;
+    public ColorSelector colorSelector; // Reference to ColorSelector
 
     /// <summary>
     /// Initializes the game by selecting a random target.
@@ -85,41 +81,19 @@ public class ColorfleGameManager : MonoBehaviour
     /// <returns>FeedbackType array for each slot.</returns>
     private FeedbackType[] EvaluateGuess(Color[] guessColors, int[] guessPercents)
     {
-        FeedbackType[] feedback = new FeedbackType[3];
-        bool[] colorMatched = new bool[3];
-        bool[] guessMatched = new bool[3];
-
-        // First pass: check for correct (color and percent in correct slot)
-        for (int i = 0; i < 3; i++)
+        // Calculate the resulting blended colors
+        Color guessResultingColor = CalculateResultingColor(guessColors, guessPercents);
+        
+        // Compare the resulting colors
+        if (ColorsEqual(guessResultingColor, targetResultingColor))
         {
-            if (ColorsEqual(guessColors[i], targetColors[i]) && guessPercents[i] == targetPercents[i])
-            {
-                feedback[i] = FeedbackType.Correct;
-                colorMatched[i] = true;
-                guessMatched[i] = true;
-            }
+            // Perfect match - all correct
+            return new FeedbackType[] { FeedbackType.Correct, FeedbackType.Correct, FeedbackType.Correct };
         }
-
-        // Second pass: check for misplaced (color exists elsewhere)
-        for (int i = 0; i < 3; i++)
-        {
-            if (feedback[i] == FeedbackType.Correct)
-                continue;
-
-            bool found = false;
-            for (int j = 0; j < 3; j++)
-            {
-                if (!colorMatched[j] && ColorsEqual(guessColors[i], targetColors[j]))
-                {
-                    found = true;
-                    colorMatched[j] = true;
-                    break;
-                }
-            }
-            feedback[i] = found ? FeedbackType.Misplaced : FeedbackType.Absent;
-        }
-
-        return feedback;
+        
+        // For now, return all absent if not perfect match
+        // You can implement more sophisticated feedback based on how close the colors are
+        return new FeedbackType[] { FeedbackType.Absent, FeedbackType.Absent, FeedbackType.Absent };
     }
 
     /// <summary>
@@ -127,13 +101,12 @@ public class ColorfleGameManager : MonoBehaviour
     /// </summary>
     private void GenerateTarget()
     {
-        if (palette == null || palette.Length < 3)
-            throw new InvalidOperationException("Palette must have at least 3 colors.");
-
-        // Pick 3 unique indices
-        int[] indices = Enumerable.Range(0, palette.Length).OrderBy(_ => UnityEngine.Random.value).Take(3).ToArray();
+        // Pick 3 unique colors from ColorSelector
+        if (colorSelector == null || colorSelector.colorPercentages.Count < 3)
+            throw new InvalidOperationException("ColorSelector must have at least 3 colors.");
+        var indices = Enumerable.Range(0, colorSelector.colorPercentages.Count).OrderBy(_ => UnityEngine.Random.value).Take(3).ToArray();
         for (int i = 0; i < 3; i++)
-            targetColors[i] = palette[indices[i]];
+            targetColors[i] = colorSelector.colorPercentages[indices[i]].color;
 
         // Generate 3 random integer percents that sum to 100
         int a = UnityEngine.Random.Range(1, 100 - 1);
@@ -143,6 +116,9 @@ public class ColorfleGameManager : MonoBehaviour
         percents = percents.OrderBy(_ => UnityEngine.Random.value).ToArray();
         for (int i = 0; i < 3; i++)
             targetPercents[i] = percents[i];
+
+        // Calculate the resulting blended color
+        targetResultingColor = CalculateResultingColor(targetColors, targetPercents);
     }
 
     /// <summary>
@@ -153,5 +129,49 @@ public class ColorfleGameManager : MonoBehaviour
         return Mathf.Approximately(a.r, b.r) &&
                Mathf.Approximately(a.g, b.g) &&
                Mathf.Approximately(a.b, b.b);
+    }
+
+    /// <summary>
+    /// Blends colors using weighted average based on their percentages.
+    /// </summary>
+    /// <param name="colors">Array of colors to blend.</param>
+    /// <param name="percentages">Array of percentages corresponding to each color.</param>
+    /// <returns>The resulting blended color.</returns>
+    public Color BlendColors(Color[] colors, int[] percentages)
+    {
+        if (colors.Length != percentages.Length || colors.Length == 0)
+            return Color.white;
+        
+        float totalPercentage = percentages.Sum();
+        if (totalPercentage == 0) return Color.white;
+        
+        Color result = Color.black;
+        
+        for (int i = 0; i < colors.Length; i++)
+        {
+            float weight = percentages[i] / totalPercentage;
+            result.r += colors[i].r * weight;
+            result.g += colors[i].g * weight;
+            result.b += colors[i].b * weight;
+        }
+        
+        result.a = 1f; // Full opacity
+        return result;
+    }
+
+    /// <summary>
+    /// Calculates the resulting color from selected colors and their percentages.
+    /// </summary>
+    public Color CalculateResultingColor(Color[] selectedColors, int[] percentages)
+    {
+        return BlendColors(selectedColors, percentages);
+    }
+
+    /// <summary>
+    /// Gets the target resulting color that the player needs to guess.
+    /// </summary>
+    public Color GetTargetResultingColor()
+    {
+        return targetResultingColor;
     }
 }
