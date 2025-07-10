@@ -249,18 +249,9 @@ MonoBehaviour:
   - {fileID: 0}
   attemptsText: {fileID: 1739003447}
   statusText: {fileID: 708347745}
-  colorSelector: {fileID: 1244919664}
+  paletteGridView: {fileID: 1244919664}
   guessGridView: {fileID: 248060839}
   pieChartView: {fileID: 8650985951566014085}
-  paletteButtons:
-  - {fileID: 560760256}
-  - {fileID: 1572383603}
-  - {fileID: 1260311652}
-  - {fileID: 1744017115}
-  - {fileID: 1032152759}
-  - {fileID: 1388302283}
-  - {fileID: 1840901621}
-  - {fileID: 986203744}
   selectedColorIndices: ffffffffffffffffffffffff
   selectionCount: 0
 --- !u!114 &47685800 stripped
@@ -286,7 +277,7 @@ GameObject:
   - component: {fileID: 248060838}
   - component: {fileID: 248060839}
   m_Layer: 5
-  m_Name: Gues Grid View
+  m_Name: Guess Grid View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -355,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f96beeef3de341b4390bb68e489a10a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mColorSelector: {fileID: 1244919664}
+  mPaletteGridView: {fileID: 1244919664}
   guessGridSlots:
   - {fileID: 1364941932}
   - {fileID: 1523573714}
@@ -1505,7 +1496,7 @@ MonoBehaviour:
   onGameOver:
     m_PersistentCalls:
       m_Calls: []
-  colorSelector: {fileID: 1244919664}
+  paletteGridView: {fileID: 1244919664}
 --- !u!4 &916077602
 Transform:
   m_ObjectHideFlags: 0
@@ -2223,7 +2214,7 @@ PrefabInstance:
     - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 10047373}
+      objectReference: {fileID: 1244919664}
     - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2234,7 +2225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ColorfleUIManager, Assembly-CSharp
+      value: PaletteGridView, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -2255,7 +2246,7 @@ PrefabInstance:
     - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 10047373}
+      objectReference: {fileID: 1244919664}
     - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2266,7 +2257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ColorfleUIManager, Assembly-CSharp
+      value: PaletteGridView, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -2287,7 +2278,7 @@ PrefabInstance:
     - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 10047373}
+      objectReference: {fileID: 1244919664}
     - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2298,7 +2289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ColorfleUIManager, Assembly-CSharp
+      value: PaletteGridView, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -2319,7 +2310,7 @@ PrefabInstance:
     - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 10047373}
+      objectReference: {fileID: 1244919664}
     - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2330,7 +2321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ColorfleUIManager, Assembly-CSharp
+      value: PaletteGridView, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -2590,7 +2581,7 @@ GameObject:
   - component: {fileID: 1244919663}
   - component: {fileID: 1244919664}
   m_Layer: 5
-  m_Name: Palette Grid
+  m_Name: Palette Grid View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2655,24 +2646,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c764bacd4f1864385f848722fadaff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  paletteButtons:
+  - {fileID: 560760256}
+  - {fileID: 1572383603}
+  - {fileID: 1260311652}
+  - {fileID: 1744017115}
+  - {fileID: 1032152759}
+  - {fileID: 1388302283}
+  - {fileID: 1840901621}
+  - {fileID: 986203744}
   targetColor: {r: 0, g: 0, b: 0, a: 0}
-  colorPercentages:
-  - color: {r: 0.8627451, g: 0.078431375, b: 0.23529412, a: 1}
-    percentage: 40
-  - color: {r: 0.05882353, g: 0.32156864, b: 0.7294118, a: 1}
-    percentage: 45
-  - color: {r: 0.3137255, g: 0.78431374, b: 0.47058824, a: 1}
-    percentage: 30
-  - color: {r: 1, g: 0.7490196, b: 0, a: 1}
-    percentage: 15
-  - color: {r: 0.21176471, g: 0.27058825, b: 0.30980393, a: 1}
-    percentage: 20
-  - color: {r: 0.2509804, g: 0.8784314, b: 0.8156863, a: 1}
-    percentage: 5
-  - color: {r: 0.78431374, g: 0.63529414, b: 0.78431374, a: 1}
-    percentage: 25
-  - color: {r: 1, g: 0.96862745, b: 0, a: 1}
-    percentage: 10
+  paletteColors:
+  - {r: 1, g: 0, b: 0, a: 6.57e-43}
+  - {r: 0, g: 1, b: 0, a: 6.57e-43}
+  - {r: 0, g: 0, b: 1, a: 6.57e-43}
+  - {r: 1, g: 1, b: 0, a: 6.57e-43}
+  - {r: 1, g: 0, b: 1, a: 6.57e-43}
+  - {r: 0, g: 1, b: 1, a: 6.57e-43}
+  - {r: -0.00000004691259, g: 6.57e-43, b: -0.00000004691327, a: 6.57e-43}
+  - {r: -0.000000046916682, g: 6.57e-43, b: -0.000000046917705, a: 6.57e-43}
   weights:
   - 0.25
   - 0.15
@@ -4409,7 +4401,7 @@ PrefabInstance:
     - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 10047373}
+      objectReference: {fileID: 1244919664}
     - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -4420,7 +4412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ColorfleUIManager, Assembly-CSharp
+      value: PaletteGridView, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 170083457038413784, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4441,7 +4433,7 @@ PrefabInstance:
     - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 10047373}
+      objectReference: {fileID: 1244919664}
     - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -4452,7 +4444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ColorfleUIManager, Assembly-CSharp
+      value: PaletteGridView, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 924535074649373727, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4473,7 +4465,7 @@ PrefabInstance:
     - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 10047373}
+      objectReference: {fileID: 1244919664}
     - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -4484,7 +4476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ColorfleUIManager, Assembly-CSharp
+      value: PaletteGridView, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3099345972276777519, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4505,7 +4497,7 @@ PrefabInstance:
     - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 10047373}
+      objectReference: {fileID: 1244919664}
     - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -4516,7 +4508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ColorfleUIManager, Assembly-CSharp
+      value: PaletteGridView, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3426858917124734924, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

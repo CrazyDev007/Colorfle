@@ -20,9 +20,10 @@ public class GuessGridPresenter
             {
                 if (ColorfleUIManager.instance.selectedColorIndices[i] >= 0)
                 {
-                    _guessGridView.SetSlotColor(_guessGridView.ColorSelector
-                        .colorPercentages[ColorfleUIManager.instance.selectedColorIndices[i]]
-                        .color, i);
+                    var color = _guessGridView.PaletteGridView.paletteColors[
+                        ColorfleUIManager.instance.selectedColorIndices[i]];
+                    color.a = 1;
+                    _guessGridView.SetSlotColor(color, i);
                 }
                 else
                 {
@@ -44,7 +45,7 @@ public class GuessGridPresenter
             ColorfleUIManager.instance.selectionCount < _guessGridView.guessGridSlots.Length)
             _guessGridView.guessGridSlots[ColorfleUIManager.instance.selectionCount].color = Color.white;
         // Reset the pie chart guess index and re-apply remaining colors
-        if (ColorfleUIManager.instance.pieChartView != null && ColorfleUIManager.instance.colorSelector != null)
+        if (ColorfleUIManager.instance.pieChartView != null && ColorfleUIManager.instance.paletteGridView != null)
         {
             ColorfleUIManager.instance.pieChartView.ResetGuessIndex();
             // Set all guessImage slots to gray
@@ -60,8 +61,8 @@ public class GuessGridPresenter
             {
                 if (ColorfleUIManager.instance.selectedColorIndices[i] >= 0)
                 {
-                    var color = ColorfleUIManager.instance.colorSelector
-                        .colorPercentages[ColorfleUIManager.instance.selectedColorIndices[i]].color;
+                    var color = ColorfleUIManager.instance.paletteGridView
+                        .paletteColors[ColorfleUIManager.instance.selectedColorIndices[i]];
                     ColorfleUIManager.instance.pieChartView.SetGuessColor(color);
                 }
             }

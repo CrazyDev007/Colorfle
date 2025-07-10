@@ -13,6 +13,7 @@ public class PieChartPresenter
 
     public void SetGuessColors(Color color)
     {
+        color.a = 1;
         if (_currentIndex < _view.GuessImagesLength)
         {
             _view.SetGuessColors(color, _currentIndex++);

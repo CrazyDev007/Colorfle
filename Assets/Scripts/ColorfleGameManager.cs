@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Manages the Colorfle game logic: generates a target color/percent combination,
@@ -36,7 +37,7 @@ public class ColorfleGameManager : MonoBehaviour
     private int[] targetPercents = new int[3];
     private Color targetResultingColor; // The blended result color
     private int attempts;
-    public ColorSelector colorSelector; // Reference to ColorSelector
+    [FormerlySerializedAs("colorSelector")] public PaletteGridView paletteGridView; // Reference to ColorSelector
 
     /// <summary>
     /// Initializes the game by selecting a random target.
@@ -102,11 +103,11 @@ public class ColorfleGameManager : MonoBehaviour
     private void GenerateTarget()
     {
         // Pick 3 unique colors from ColorSelector
-        if (colorSelector == null || colorSelector.colorPercentages.Count < 3)
+        if (paletteGridView == null || paletteGridView.paletteColors.Count < 3)
             throw new InvalidOperationException("ColorSelector must have at least 3 colors.");
-        var indices = Enumerable.Range(0, colorSelector.colorPercentages.Count).OrderBy(_ => UnityEngine.Random.value).Take(3).ToArray();
+        var indices = Enumerable.Range(0, paletteGridView.paletteColors.Count).OrderBy(_ => UnityEngine.Random.value).Take(3).ToArray();
         for (int i = 0; i < 3; i++)
-            targetColors[i] = colorSelector.colorPercentages[indices[i]].color;
+            targetColors[i] = paletteGridView.paletteColors[indices[i]];
 
         // Generate 3 random integer percents that sum to 100
         int a = UnityEngine.Random.Range(1, 100 - 1);

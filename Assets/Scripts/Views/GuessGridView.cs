@@ -1,14 +1,15 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GuessGridView : MonoBehaviour
 {
-    [SerializeField] private ColorSelector mColorSelector;
+    [FormerlySerializedAs("mColorSelector")] [SerializeField] private PaletteGridView mPaletteGridView;
     public Image[] guessGridSlots; // Assign 3 UI Image components for guess grid slots in the Inspector
 
     private GuessGridPresenter _presenter;
 
-    public ColorSelector ColorSelector => mColorSelector;
+    public PaletteGridView PaletteGridView => mPaletteGridView;
 
     private void Start()
     {

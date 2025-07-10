@@ -1,6 +1,7 @@
 using System.Reflection;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ColorfleUIManager : MonoBehaviour
@@ -9,13 +10,11 @@ public class ColorfleUIManager : MonoBehaviour
 
     public ColorfleGameManager gameManager;
     public Button submitButton;
-    public TextMeshProUGUI[] feedbackTexts; // 3 texts for feedback
     public TextMeshProUGUI attemptsText;
     public TextMeshProUGUI statusText;
-    public ColorSelector colorSelector; // Reference to ColorSelector
+    [FormerlySerializedAs("colorSelector")] public PaletteGridView paletteGridView; // Reference to ColorSelector
     public GuessGridView guessGridView;
     public PieChartView pieChartView; // Reference to PieChart
-    public Image[] paletteButtons; // Assign palette button images in Inspector
 
     public int[] selectedColorIndices = new int[3] { -1, -1, -1 }; // Stores indices of selected colors
     public int selectionCount = 0;
@@ -34,10 +33,9 @@ public class ColorfleUIManager : MonoBehaviour
 
     void Start()
     {
-        SetPaletteButtonColors();
-        if (pieChartView != null && colorSelector != null)
+        if (pieChartView != null && paletteGridView != null)
         {
-            var targetColor = colorSelector.GetTargetColor();
+            var targetColor = paletteGridView.GetTargetColor();
             pieChartView.SetTargetAndResetGuess(targetColor);
         }
 
@@ -53,9 +51,9 @@ public class ColorfleUIManager : MonoBehaviour
         int selected = 0;
         for (int i = 0; i < 3; i++)
         {
-            if (selectedColorIndices[i] >= 0 && colorSelector != null)
+            if (selectedColorIndices[i] >= 0 && paletteGridView != null)
             {
-                guessColors[i] = colorSelector.colorPercentages[selectedColorIndices[i]].color;
+                guessColors[i] = paletteGridView.paletteColors[selectedColorIndices[i]];
                 selected++;
             }
             else
@@ -71,8 +69,8 @@ public class ColorfleUIManager : MonoBehaviour
         }
 
         // Calculate total percentage and compare with target
-        var targetColor = colorSelector.targetColor;
-        var targetMixColor = colorSelector.GetMixColor(guessColors);
+        var targetColor = paletteGridView.targetColor;
+        var targetMixColor = paletteGridView.GetMixColor(guessColors);
         if (targetColor != targetMixColor)
         {
             statusText.text =
@@ -87,66 +85,9 @@ public class ColorfleUIManager : MonoBehaviour
             $"Guess submitted. Resulting color: {targetMixColor}";
     }
 
-    void ShowFeedback(ColorfleGameManager.FeedbackType[] feedback)
-    {
-        for (int i = 0; i < 3; i++)
-            feedbackTexts[i].text = feedback[i].ToString();
-        // Optionally update attemptsText here
-    }
-
     void OnGameOver(bool won)
     {
         statusText.text = won ? "You Win!" : "Game Over!";
         submitButton.interactable = false;
-    }
-
-    // Call this from the palette color button's OnClick event, passing the color index
-    public void OnPaletteColorClicked(int colorIndex)
-    {
-        if (colorSelector == null || colorIndex < 0 || colorIndex >= colorSelector.colorPercentages.Count)
-        {
-            statusText.text = $"Invalid color selection.";
-            return;
-        }
-
-        // Prevent duplicate selection
-        for (int i = 0; i < selectionCount; i++)
-        {
-            if (selectedColorIndices[i] == colorIndex)
-            {
-                statusText.text = $"Color already selected.";
-                return;
-            }
-        }
-
-        if (selectionCount >= 3)
-        {
-            statusText.text = $"You can only select 3 colors.";
-            return;
-        }
-
-        selectedColorIndices[selectionCount] = colorIndex;
-        selectionCount++;
-        // Call PieChart.SetGuessColors with the selected color
-        if (pieChartView != null)
-        {
-            var color = colorSelector.colorPercentages[colorIndex].color;
-            pieChartView.SetGuessColor(color);
-        }
-
-        guessGridView.UpdateGuessGridUI();
-        var colorInfo = colorSelector.colorPercentages[colorIndex];
-        var c = colorInfo.color;
-        statusText.text =
-            $"Selected Color {colorIndex + 1}: RGB({(int)(c.r * 255)}, {(int)(c.g * 255)}, {(int)(c.b * 255)})";
-    }
-
-    public void SetPaletteButtonColors()
-    {
-        if (paletteButtons == null || colorSelector == null) return;
-        for (int i = 0; i < paletteButtons.Length && i < colorSelector.colorPercentages.Count; i++)
-        {
-            paletteButtons[i].color = colorSelector.colorPercentages[i].color;
-        }
     }
 }
