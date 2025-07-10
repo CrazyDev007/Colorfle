@@ -254,7 +254,7 @@ MonoBehaviour:
   - {fileID: 1364941932}
   - {fileID: 1523573714}
   - {fileID: 2015153522}
-  pieChart: {fileID: 8650985951566014084}
+  pieChartView: {fileID: 8650985951566014085}
   paletteButtons:
   - {fileID: 560760256}
   - {fileID: 1572383603}
@@ -4057,9 +4057,9 @@ GameObject:
   m_Component:
   - component: {fileID: 476071457270786583}
   - component: {fileID: 476071457270786581}
-  - component: {fileID: 8650985951566014084}
+  - component: {fileID: 8650985951566014085}
   m_Layer: 5
-  m_Name: PieChart
+  m_Name: PieChartView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4726,7 +4726,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6acdbfb5a327bd448983cd882e01afc, type: 3}
---- !u!114 &8650985951566014084
+--- !u!114 &8650985951566014085
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4735,7 +4735,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 476071457270786576}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e86c18b634c454249b4a607314bedbf9, type: 3}
+  m_Script: {fileID: 11500000, guid: 00ab9a0ad410c10429f8f90c623f8d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetImage: {fileID: 2019104445}

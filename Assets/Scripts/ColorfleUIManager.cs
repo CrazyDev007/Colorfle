@@ -12,7 +12,7 @@ public class ColorfleUIManager : MonoBehaviour
     public TextMeshProUGUI statusText;
     public ColorSelector colorSelector; // Reference to ColorSelector
     public Image[] guessGridSlots; // Assign 3 UI Image components for guess grid slots in the Inspector
-    public PieChart pieChart; // Reference to PieChart
+    public PieChartView pieChartView; // Reference to PieChart
     public Image[] paletteButtons; // Assign palette button images in Inspector
 
     private int[] selectedColorIndices = new int[3] { -1, -1, -1 }; // Stores indices of selected colors
@@ -21,10 +21,10 @@ public class ColorfleUIManager : MonoBehaviour
     void Start()
     {
         SetPaletteButtonColors();
-        if (pieChart != null && colorSelector != null)
+        if (pieChartView != null && colorSelector != null)
         {
             var targetColor = colorSelector.GetTargetColor();
-            pieChart.SetTargetAndResetGuess(targetColor);
+            pieChartView.SetTargetAndResetGuess(targetColor);
         }
 
         submitButton.onClick.AddListener(OnSubmitGuess);
@@ -114,10 +114,10 @@ public class ColorfleUIManager : MonoBehaviour
         selectedColorIndices[selectionCount] = colorIndex;
         selectionCount++;
         // Call PieChart.SetGuessColors with the selected color
-        if (pieChart != null)
+        if (pieChartView != null)
         {
             var color = colorSelector.colorPercentages[colorIndex].color;
-            pieChart.SetGuessColors(color);
+            pieChartView.SetGuessColor(color);
         }
 
         UpdateGuessGridUI();
@@ -166,13 +166,13 @@ public class ColorfleUIManager : MonoBehaviour
         if (guessGridSlots != null && selectionCount < guessGridSlots.Length)
             guessGridSlots[selectionCount].color = Color.white;
         // Reset the pie chart guess index and re-apply remaining colors
-        if (pieChart != null && colorSelector != null)
+        if (pieChartView != null && colorSelector != null)
         {
-            pieChart.ResetGuessIndex();
+            pieChartView.ResetGuessIndex();
             // Set all guessImage slots to gray
-            foreach (var img in pieChart.GetType().GetField("guessImage",
+            foreach (var img in pieChartView.GetType().GetField("guessImage",
                              BindingFlags.NonPublic | BindingFlags.Instance)
-                         .GetValue(pieChart) as Image[])
+                         .GetValue(pieChartView) as Image[])
             {
                 if (img != null)
                     img.color = Color.gray;
@@ -183,7 +183,7 @@ public class ColorfleUIManager : MonoBehaviour
                 if (selectedColorIndices[i] >= 0)
                 {
                     var color = colorSelector.colorPercentages[selectedColorIndices[i]].color;
-                    pieChart.SetGuessColors(color);
+                    pieChartView.SetGuessColor(color);
                 }
             }
         }
