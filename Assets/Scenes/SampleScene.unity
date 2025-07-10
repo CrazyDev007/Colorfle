@@ -250,10 +250,7 @@ MonoBehaviour:
   attemptsText: {fileID: 1739003447}
   statusText: {fileID: 708347745}
   colorSelector: {fileID: 1244919664}
-  guessGridSlots:
-  - {fileID: 1364941932}
-  - {fileID: 1523573714}
-  - {fileID: 2015153522}
+  guessGridView: {fileID: 248060839}
   pieChartView: {fileID: 8650985951566014085}
   paletteButtons:
   - {fileID: 560760256}
@@ -264,6 +261,19 @@ MonoBehaviour:
   - {fileID: 1388302283}
   - {fileID: 1840901621}
   - {fileID: 986203744}
+  selectedColorIndices: ffffffffffffffffffffffff
+  selectionCount: 0
+--- !u!114 &47685800 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4236590040951658765, guid: 663775431b2dd9f49b07c39b495e49fa, type: 3}
+  m_PrefabInstance: {fileID: 3348135566649502202}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &248060835
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,8 +284,9 @@ GameObject:
   m_Component:
   - component: {fileID: 248060836}
   - component: {fileID: 248060838}
+  - component: {fileID: 248060839}
   m_Layer: 5
-  m_Name: Gues Grid
+  m_Name: Gues Grid View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -332,6 +343,24 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &248060839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248060835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f96beeef3de341b4390bb68e489a10a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColorSelector: {fileID: 1244919664}
+  guessGridSlots:
+  - {fileID: 1364941932}
+  - {fileID: 1523573714}
+  - {fileID: 2015153522}
+  - {fileID: 47685800}
 --- !u!1 &418334766
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,8 +751,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 10047373}
-        m_TargetAssemblyTypeName: ColorfleUIManager, Assembly-CSharp
+      - m_Target: {fileID: 248060839}
+        m_TargetAssemblyTypeName: GuessGridView, Assembly-CSharp
         m_MethodName: OnDeleteLastGuessColor
         m_Mode: 1
         m_Arguments:
@@ -4059,7 +4088,7 @@ GameObject:
   - component: {fileID: 476071457270786581}
   - component: {fileID: 8650985951566014085}
   m_Layer: 5
-  m_Name: PieChartView
+  m_Name: Pie Chart View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

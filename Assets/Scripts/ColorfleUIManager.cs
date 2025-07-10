@@ -5,18 +5,32 @@ using UnityEngine.UI;
 
 public class ColorfleUIManager : MonoBehaviour
 {
+    public static ColorfleUIManager instance;
+
     public ColorfleGameManager gameManager;
     public Button submitButton;
     public TextMeshProUGUI[] feedbackTexts; // 3 texts for feedback
     public TextMeshProUGUI attemptsText;
     public TextMeshProUGUI statusText;
     public ColorSelector colorSelector; // Reference to ColorSelector
-    public Image[] guessGridSlots; // Assign 3 UI Image components for guess grid slots in the Inspector
+    public GuessGridView guessGridView;
     public PieChartView pieChartView; // Reference to PieChart
     public Image[] paletteButtons; // Assign palette button images in Inspector
 
-    private int[] selectedColorIndices = new int[3] { -1, -1, -1 }; // Stores indices of selected colors
-    private int selectionCount = 0;
+    public int[] selectedColorIndices = new int[3] { -1, -1, -1 }; // Stores indices of selected colors
+    public int selectionCount = 0;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -120,31 +134,11 @@ public class ColorfleUIManager : MonoBehaviour
             pieChartView.SetGuessColor(color);
         }
 
-        UpdateGuessGridUI();
+        guessGridView.UpdateGuessGridUI();
         var colorInfo = colorSelector.colorPercentages[colorIndex];
         var c = colorInfo.color;
         statusText.text =
             $"Selected Color {colorIndex + 1}: RGB({(int)(c.r * 255)}, {(int)(c.g * 255)}, {(int)(c.b * 255)})";
-    }
-
-    // Placeholder: update the guess grid UI to show selected colors
-    private void UpdateGuessGridUI()
-    {
-        // Update the guess grid UI to show selected colors
-        for (int i = 0; i < 3; i++)
-        {
-            if (guessGridSlots != null && i < guessGridSlots.Length)
-            {
-                if (selectedColorIndices[i] >= 0 && colorSelector != null)
-                {
-                    guessGridSlots[i].color = colorSelector.colorPercentages[selectedColorIndices[i]].color;
-                }
-                else
-                {
-                    guessGridSlots[i].color = Color.white; // Default/empty slot color
-                }
-            }
-        }
     }
 
     public void SetPaletteButtonColors()
@@ -153,39 +147,6 @@ public class ColorfleUIManager : MonoBehaviour
         for (int i = 0; i < paletteButtons.Length && i < colorSelector.colorPercentages.Count; i++)
         {
             paletteButtons[i].color = colorSelector.colorPercentages[i].color;
-        }
-    }
-
-    public void OnDeleteLastGuessColor()
-    {
-        if (selectionCount <= 0)
-            return;
-        selectionCount--;
-        selectedColorIndices[selectionCount] = -1;
-        // Reset the corresponding guess grid slot
-        if (guessGridSlots != null && selectionCount < guessGridSlots.Length)
-            guessGridSlots[selectionCount].color = Color.white;
-        // Reset the pie chart guess index and re-apply remaining colors
-        if (pieChartView != null && colorSelector != null)
-        {
-            pieChartView.ResetGuessIndex();
-            // Set all guessImage slots to gray
-            foreach (var img in pieChartView.GetType().GetField("guessImage",
-                             BindingFlags.NonPublic | BindingFlags.Instance)
-                         .GetValue(pieChartView) as Image[])
-            {
-                if (img != null)
-                    img.color = Color.gray;
-            }
-
-            for (int i = 0; i < selectionCount; i++)
-            {
-                if (selectedColorIndices[i] >= 0)
-                {
-                    var color = colorSelector.colorPercentages[selectedColorIndices[i]].color;
-                    pieChartView.SetGuessColor(color);
-                }
-            }
         }
     }
 }
