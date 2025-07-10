@@ -18,10 +18,10 @@ public class GuessGridPresenter
         {
             if (i < _guessGridView.guessGridSlots.Length)
             {
-                if (ColorfleUIManager.instance.selectedColorIndices[i] >= 0)
+                if (ColorfleGameManager.instance.selectedColorIndices[i] >= 0)
                 {
                     var color = _guessGridView.PaletteGridView.paletteColors[
-                        ColorfleUIManager.instance.selectedColorIndices[i]];
+                        ColorfleGameManager.instance.selectedColorIndices[i]];
                     color.a = 1;
                     _guessGridView.SetSlotColor(color, i);
                 }
@@ -36,34 +36,34 @@ public class GuessGridPresenter
 
     public void OnDeleteLastGuessColor()
     {
-        if (ColorfleUIManager.instance.selectionCount <= 0)
+        if (GameplayScreen.instance.selectionCount <= 0)
             return;
-        ColorfleUIManager.instance.selectionCount--;
-        ColorfleUIManager.instance.selectedColorIndices[ColorfleUIManager.instance.selectionCount] = -1;
+        GameplayScreen.instance.selectionCount--;
+        ColorfleGameManager.instance.selectedColorIndices[GameplayScreen.instance.selectionCount] = -1;
         // Reset the corresponding guess grid slot
         if (_guessGridView.guessGridSlots != null &&
-            ColorfleUIManager.instance.selectionCount < _guessGridView.guessGridSlots.Length)
-            _guessGridView.guessGridSlots[ColorfleUIManager.instance.selectionCount].color = Color.white;
+            GameplayScreen.instance.selectionCount < _guessGridView.guessGridSlots.Length)
+            _guessGridView.guessGridSlots[GameplayScreen.instance.selectionCount].color = Color.white;
         // Reset the pie chart guess index and re-apply remaining colors
-        if (ColorfleUIManager.instance.pieChartView != null && ColorfleUIManager.instance.paletteGridView != null)
+        if (GameplayScreen.instance.pieChartView != null && GameplayScreen.instance.paletteGridView != null)
         {
-            ColorfleUIManager.instance.pieChartView.ResetGuessIndex();
+            GameplayScreen.instance.pieChartView.ResetGuessIndex();
             // Set all guessImage slots to gray
-            foreach (var img in ColorfleUIManager.instance.pieChartView.GetType().GetField("guessImage",
+            foreach (var img in GameplayScreen.instance.pieChartView.GetType().GetField("guessImage",
                              BindingFlags.NonPublic | BindingFlags.Instance)
-                         .GetValue(ColorfleUIManager.instance.pieChartView) as Image[])
+                         .GetValue(GameplayScreen.instance.pieChartView) as Image[])
             {
                 if (img != null)
                     img.color = Color.gray;
             }
 
-            for (int i = 0; i < ColorfleUIManager.instance.selectionCount; i++)
+            for (int i = 0; i < GameplayScreen.instance.selectionCount; i++)
             {
-                if (ColorfleUIManager.instance.selectedColorIndices[i] >= 0)
+                if (ColorfleGameManager.instance.selectedColorIndices[i] >= 0)
                 {
-                    var color = ColorfleUIManager.instance.paletteGridView
-                        .paletteColors[ColorfleUIManager.instance.selectedColorIndices[i]];
-                    ColorfleUIManager.instance.pieChartView.SetGuessColor(color);
+                    var color = GameplayScreen.instance.paletteGridView
+                        .paletteColors[ColorfleGameManager.instance.selectedColorIndices[i]];
+                    GameplayScreen.instance.pieChartView.SetGuessColor(color);
                 }
             }
         }

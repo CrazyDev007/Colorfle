@@ -20,31 +20,31 @@ public class PaletteGridPresenter
         }
 
         // Prevent duplicate selection
-        for (int i = 0; i < ColorfleUIManager.instance.selectionCount; i++)
+        for (int i = 0; i < GameplayScreen.instance.selectionCount; i++)
         {
-            if (ColorfleUIManager.instance.selectedColorIndices[i] == colorIndex)
+            if (ColorfleGameManager.instance.selectedColorIndices[i] == colorIndex)
             {
                 Debug.Log("Color already selected.");
                 return;
             }
         }
 
-        if (ColorfleUIManager.instance.selectionCount >= 3)
+        if (GameplayScreen.instance.selectionCount >= 3)
         {
             Debug.Log("You can only select 3 colors.");
             return;
         }
 
-        ColorfleUIManager.instance.selectedColorIndices[ColorfleUIManager.instance.selectionCount] = colorIndex;
-        ColorfleUIManager.instance.selectionCount++;
+        ColorfleGameManager.instance.selectedColorIndices[GameplayScreen.instance.selectionCount] = colorIndex;
+        GameplayScreen.instance.selectionCount++;
         // Call PieChart.SetGuessColors with the selected color
-        if (ColorfleUIManager.instance.pieChartView != null)
+        if (GameplayScreen.instance.pieChartView != null)
         {
             var color = _paletteGridView.paletteColors[colorIndex];
-            ColorfleUIManager.instance.pieChartView.SetGuessColor(color);
+            GameplayScreen.instance.pieChartView.SetGuessColor(color);
         }
 
-        ColorfleUIManager.instance.guessGridView.UpdateGuessGridUI();
+        GameplayScreen.instance.guessGridView.UpdateGuessGridUI();
         var colorInfo = _paletteGridView.paletteColors[colorIndex];
         var c = colorInfo;
         Debug.Log($"Selected Color {colorIndex + 1}: RGB({(int)(c.r * 255)}, {(int)(c.g * 255)}, {(int)(c.b * 255)})");
