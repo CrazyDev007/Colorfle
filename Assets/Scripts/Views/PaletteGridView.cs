@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PaletteGridView : MonoBehaviour
 {
+    [FormerlySerializedAs("gameplayScreenMediatorMediator")] [FormerlySerializedAs("gameplayScreenMediator")] [FormerlySerializedAs("mediator")] [SerializeField] private GameplayScreen gameplayScreen;
     public Image[] paletteButtons; // Assign palette button images in Inspector
     public Color targetColor;
 
@@ -17,7 +18,7 @@ public class PaletteGridView : MonoBehaviour
 
     private void Awake()
     {
-        _paletteGridPresenter = new PaletteGridPresenter(this);
+        _paletteGridPresenter = new PaletteGridPresenter(this, gameplayScreen);
         SetPaletteButtonColors();
     }
 

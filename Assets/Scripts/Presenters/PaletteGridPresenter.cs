@@ -4,23 +4,26 @@ using UnityEngine;
 public class PaletteGridPresenter
 {
     private PaletteGridView _paletteGridView;
+    private IGameplayMediator _gameplayScreen;
 
-    public PaletteGridPresenter(PaletteGridView paletteGridView)
+    public PaletteGridPresenter(PaletteGridView paletteGridView, IGameplayMediator gameplayScreen)
     {
         _paletteGridView = paletteGridView;
+        _gameplayScreen = gameplayScreen;
     }
 
     // Call this from the palette color button's OnClick event, passing the color index
     public void OnPaletteColorClicked(int colorIndex)
     {
-        if (_paletteGridView == null || colorIndex < 0 || colorIndex >= _paletteGridView.paletteColors.Count)
+        var gameManger = ColorfleGameManager.instance;
+        if (gameManger.CurrentIndex >= 3)
         {
-            Debug.Log("Invalid color selection.");
+            Debug.Log("You can only select 3 colors.");
             return;
         }
 
         // Prevent duplicate selection
-        for (int i = 0; i < GameplayScreen.instance.selectionCount; i++)
+        for (int i = 0; i <= gameManger.CurrentIndex; i++)
         {
             if (ColorfleGameManager.instance.selectedColorIndices[i] == colorIndex)
             {
@@ -29,25 +32,11 @@ public class PaletteGridPresenter
             }
         }
 
-        if (GameplayScreen.instance.selectionCount >= 3)
-        {
-            Debug.Log("You can only select 3 colors.");
-            return;
-        }
 
-        ColorfleGameManager.instance.selectedColorIndices[GameplayScreen.instance.selectionCount] = colorIndex;
-        GameplayScreen.instance.selectionCount++;
+        ColorfleGameManager.instance.selectedColorIndices[gameManger.CurrentIndex] = colorIndex;
         // Call PieChart.SetGuessColors with the selected color
-        if (GameplayScreen.instance.pieChartView != null)
-        {
-            var color = _paletteGridView.paletteColors[colorIndex];
-            GameplayScreen.instance.pieChartView.SetGuessColor(color);
-        }
-
-        GameplayScreen.instance.guessGridView.UpdateGuessGridUI();
-        var colorInfo = _paletteGridView.paletteColors[colorIndex];
-        var c = colorInfo;
-        Debug.Log($"Selected Color {colorIndex + 1}: RGB({(int)(c.r * 255)}, {(int)(c.g * 255)}, {(int)(c.b * 255)})");
+        var color = _paletteGridView.paletteColors[colorIndex];
+        _gameplayScreen.Notify(_paletteGridView, GameplayEvent.PaletteColorClicked, color);
     }
 
     public Color GetTargetColor()

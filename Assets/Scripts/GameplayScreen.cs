@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class GameplayScreen : MonoBehaviour
+public class GameplayScreen : MonoBehaviour, IGameplayMediator
 {
     public static GameplayScreen instance;
 
@@ -17,8 +17,6 @@ public class GameplayScreen : MonoBehaviour
 
     public GuessGridView guessGridView;
     public PieChartView pieChartView;
-
-    public int selectionCount = 0;
 
     private void Awake()
     {
@@ -53,5 +51,30 @@ public class GameplayScreen : MonoBehaviour
     {
         statusText.text = won ? "You Win!" : "Game Over!";
         submitButton.interactable = false;
+    }
+
+    public void OnDeleteLastGuessColor()
+    {
+        var gameManager = ColorfleGameManager.instance;
+        if (gameManager.CurrentIndex <= 0)
+            return;
+        gameManager.CurrentIndex -= 1;
+        ColorfleGameManager.instance.selectedColorIndices[gameManager.CurrentIndex] = -1;
+        // Reset the corresponding guess grid slot
+        guessGridView.guessGridSlots1[gameManager.CurrentIndex].color = Color.white;
+        // Reset the pie chart guess index and re-apply remaining colors
+        pieChartView.SetGuessColors(Color.gray, gameManager.CurrentIndex);
+    }
+
+    public void Notify(object sender, GameplayEvent eventCode, object selectedColor)
+    {
+        switch (eventCode)
+        {
+            case GameplayEvent.PaletteColorClicked:
+                pieChartView.SetGuessColors((Color)selectedColor, ColorfleGameManager.instance.CurrentIndex);
+                guessGridView.UpdateGuessGridUI();
+                ColorfleGameManager.instance.CurrentIndex += 1;
+                break;
+        }
     }
 }

@@ -4,30 +4,34 @@ using UnityEngine.UI;
 
 public class GuessGridView : MonoBehaviour
 {
-    [FormerlySerializedAs("mColorSelector")] [SerializeField] private PaletteGridView mPaletteGridView;
-    public Image[] guessGridSlots; // Assign 3 UI Image components for guess grid slots in the Inspector
+    [FormerlySerializedAs("mColorSelector")] [SerializeField]
+    private PaletteGridView mPaletteGridView;
+
+    public Image[] guessGridSlots0;
+    public Image[] guessGridSlots1;
+    public Image[] guessGridSlots2;
+    public Image[] guessGridSlots3;
+    public Image[] guessGridSlots4;
+    public Image[] guessGridSlots5;
 
     private GuessGridPresenter _presenter;
+
+    [SerializeField] private GameplayScreen gameplayScreen;
 
     public PaletteGridView PaletteGridView => mPaletteGridView;
 
     private void Start()
     {
-        _presenter = new GuessGridPresenter(this);
+        _presenter = new GuessGridPresenter(this, gameplayScreen);
     }
 
     public void SetSlotColor(Color color, int index)
     {
-        guessGridSlots[index].color = color;
+        guessGridSlots1[index].color = color;
     }
 
     public void UpdateGuessGridUI()
     {
         _presenter.UpdateGuessGridUI();
-    }
-
-    public void OnDeleteLastGuessColor()
-    {
-        _presenter.OnDeleteLastGuessColor();
     }
 }

@@ -9,24 +9,13 @@ public class ColorfleGameManager : MonoBehaviour
     [Tooltip("Number of guesses allowed.")]
     public int maxAttempts = 6;
 
-
-    [Tooltip("Event fired after each guess is evaluated.")]
-    public UnityEvent<FeedbackType[]> onGuessEvaluated;
-
-
     [Tooltip("Event fired when the game ends.")]
     public UnityEvent<bool> onGameOver;
 
-    public int[] selectedColorIndices = new int[3] { -1, -1, -1 }; // Stores indices of selected colors
+    public int CurrentIndex { get; set; }
+    public int Attempts { get; set; }
+    public int[] selectedColorIndices = new int[3] { -1, -1, -1 };
 
-    public enum FeedbackType
-    {
-        Correct,
-        Misplaced,
-        Absent
-    }
-
-    private int attempts;
 
     [FormerlySerializedAs("colorSelector")]
     public PaletteGridView paletteGridView; // Reference to ColorSelector
@@ -47,7 +36,7 @@ public class ColorfleGameManager : MonoBehaviour
 
     private void Start()
     {
-        attempts = 0;
+        Attempts = 0;
     }
 
     private bool ColorsEqual(Color a, Color b)

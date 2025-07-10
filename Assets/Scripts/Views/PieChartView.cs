@@ -17,6 +17,7 @@ public class PieChartView : MonoBehaviour
 
     public void SetGuessColors(Color color, int currentIndex)
     {
+        color.a = 1;
         guessImage[currentIndex].color = color;
     }
 
@@ -38,10 +39,5 @@ public class PieChartView : MonoBehaviour
     public void SetGuessColor(Color guessColor)
     {
         _pieChartPresenter.SetGuessColors(guessColor);
-    }
-
-    public void ResetGuessIndex()
-    {
-        _pieChartPresenter.ResetGuessIndex();
     }
 }
