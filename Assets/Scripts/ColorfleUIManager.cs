@@ -1,3 +1,4 @@
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,11 +23,12 @@ public class ColorfleUIManager : MonoBehaviour
         SetPaletteButtonColors();
         if (pieChart != null && colorSelector != null)
         {
-            Color targetColor = colorSelector.targetColorPercentage.color;
+            var targetColor = colorSelector.GetTargetColor();
             pieChart.SetTargetAndResetGuess(targetColor);
         }
+
         submitButton.onClick.AddListener(OnSubmitGuess);
-        gameManager.onGuessEvaluated.AddListener(ShowFeedback);
+        //gameManager.onGuessEvaluated.AddListener(ShowFeedback);
         gameManager.onGameOver.AddListener(OnGameOver);
     }
 
@@ -34,32 +36,41 @@ public class ColorfleUIManager : MonoBehaviour
     {
         // Collect selected colors
         Color[] guessColors = new Color[3];
-        int[] guessPercents = new int[3];
         int selected = 0;
         for (int i = 0; i < 3; i++)
         {
             if (selectedColorIndices[i] >= 0 && colorSelector != null)
             {
                 guessColors[i] = colorSelector.colorPercentages[selectedColorIndices[i]].color;
-                // TODO: Replace with actual user input for percentages if available
-                guessPercents[i] = (i < 2) ? 33 : 34; // Default: 33, 33, 34
                 selected++;
             }
             else
             {
                 guessColors[i] = Color.white;
-                guessPercents[i] = 0;
             }
         }
+
         if (selected < 3)
         {
             statusText.text = "Please select 3 colors before submitting your guess.";
             return;
         }
-        var feedback = gameManager.SubmitGuess(guessColors, guessPercents);
+
+        // Calculate total percentage and compare with target
+        var targetColor = colorSelector.targetColor;
+        var targetMixColor = colorSelector.GetMixColor(guessColors);
+        if (targetColor != targetMixColor)
+        {
+            statusText.text =
+                $"guess color ({targetMixColor}%) does not match target color ({targetColor}%).";
+            return;
+        }
+
+        //var feedback = gameManager.SubmitGuess(guessColors, guessPercents);
         // Optionally, show the resulting blended color
-        Color result = gameManager.CalculateResultingColor(guessColors, guessPercents);
-        statusText.text = $"Guess submitted. Resulting color: RGB({(int)(result.r * 255)}, {(int)(result.g * 255)}, {(int)(result.b * 255)})";
+        //var result = colorSelector.GetTargetColor(); //gameManager.CalculateResultingColor(guessColors, guessPercents);
+        statusText.text =
+            $"Guess submitted. Resulting color: {targetMixColor}";
     }
 
     void ShowFeedback(ColorfleGameManager.FeedbackType[] feedback)
@@ -83,6 +94,7 @@ public class ColorfleUIManager : MonoBehaviour
             statusText.text = $"Invalid color selection.";
             return;
         }
+
         // Prevent duplicate selection
         for (int i = 0; i < selectionCount; i++)
         {
@@ -92,11 +104,13 @@ public class ColorfleUIManager : MonoBehaviour
                 return;
             }
         }
+
         if (selectionCount >= 3)
         {
             statusText.text = $"You can only select 3 colors.";
             return;
         }
+
         selectedColorIndices[selectionCount] = colorIndex;
         selectionCount++;
         // Call PieChart.SetGuessColors with the selected color
@@ -105,10 +119,12 @@ public class ColorfleUIManager : MonoBehaviour
             var color = colorSelector.colorPercentages[colorIndex].color;
             pieChart.SetGuessColors(color);
         }
+
         UpdateGuessGridUI();
         var colorInfo = colorSelector.colorPercentages[colorIndex];
         var c = colorInfo.color;
-        statusText.text = $"Selected Color {colorIndex + 1}: RGB({(int)(c.r * 255)}, {(int)(c.g * 255)}, {(int)(c.b * 255)})";
+        statusText.text =
+            $"Selected Color {colorIndex + 1}: RGB({(int)(c.r * 255)}, {(int)(c.g * 255)}, {(int)(c.b * 255)})";
     }
 
     // Placeholder: update the guess grid UI to show selected colors
@@ -154,11 +170,14 @@ public class ColorfleUIManager : MonoBehaviour
         {
             pieChart.ResetGuessIndex();
             // Set all guessImage slots to gray
-            foreach (var img in pieChart.GetType().GetField("guessImage", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(pieChart) as Image[])
+            foreach (var img in pieChart.GetType().GetField("guessImage",
+                             BindingFlags.NonPublic | BindingFlags.Instance)
+                         .GetValue(pieChart) as Image[])
             {
                 if (img != null)
                     img.color = Color.gray;
             }
+
             for (int i = 0; i < selectionCount; i++)
             {
                 if (selectedColorIndices[i] >= 0)

@@ -1,35 +1,61 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [Serializable]
 public class ColorPercentage
 {
     public Color color;
-    [Range(0, 100)]
-    public float percentage;
+    [Range(0, 100)] public float percentage;
 }
 
 public class ColorSelector : MonoBehaviour
 {
-    public ColorPercentage targetColorPercentage;
+    public Color targetColor;
     public List<ColorPercentage> colorPercentages;
 
-    public Color GetRandomColor()
+    [SerializeField] private List<float> weights;
+
+
+    public Color GetTargetColor()
     {
-        float total = 0f;
-        foreach (var cp in colorPercentages)
-            total += cp.percentage;
-
-        float randomPoint = UnityEngine.Random.value * total;
-        float cumulative = 0f;
-
-        foreach (var cp in colorPercentages)
+        var guessIndex = new List<int>();
+        var guessColors = new List<Color>();
+        while (guessColors.Count < 3)
         {
-            cumulative += cp.percentage;
-            if (randomPoint <= cumulative)
-                return cp.color;
+            var index = Random.Range(0, colorPercentages.Count);
+            var newColor = colorPercentages[index].color;
+            if (!guessColors.Contains(newColor))
+            {
+                guessIndex.Add(index);
+                guessColors.Add(newColor);
+            }
         }
-        return Color.white; // fallback
+
+        foreach (var guessColor in guessIndex)
+            Debug.Log(guessColor);
+        targetColor = GetMixColor(guessColors.ToArray());
+        return targetColor;
+    }
+
+    public Color GetMixColor(Color[] guessedColors)
+    {
+        var r = 0f;
+        var g = 0f;
+        var b = 0f;
+        var a = 0f;
+        for (var i = 0; i < guessedColors.Length; i++)
+        {
+            var weight = weights[i];
+            r += guessedColors[i].r * weight;
+            g += guessedColors[i].g * weight;
+            b += guessedColors[i].b * weight;
+            a += guessedColors[i].a * weight;
+        }
+
+        var result = new Color(r, g, b, a);
+
+        return result;
     }
 }
