@@ -21,4 +21,9 @@ public class WinScreen : UIScreen
     {
         textStatus.text = "Game Over, You Win!";
     }
+
+    public void OnGameLose()
+    {
+        textStatus.text = "Game Over, You Lose!";
+    }
 }

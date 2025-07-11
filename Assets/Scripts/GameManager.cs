@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("Event fired when the game ends.")]
     public UnityEvent<bool> onGameOver;
 
+    public UnityEvent onGameLose;
     public UnityEvent onRestartGame;
     public UnityEvent onWrongGuess;
 

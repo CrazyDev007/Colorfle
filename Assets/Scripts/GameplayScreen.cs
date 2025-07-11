@@ -48,7 +48,8 @@ public class GameplayScreen : UIScreen, IGameplayMediator
         GameManager.instance.Attempts++;
         if (GameManager.instance.Attempts >= 6)
         {
-            GameManager.instance.onGameOver?.Invoke(false);
+            UIManager.Instance.ShowScreen(UIScreenType.Win);
+            GameManager.instance.onGameLose?.Invoke();
         }
     }
 
