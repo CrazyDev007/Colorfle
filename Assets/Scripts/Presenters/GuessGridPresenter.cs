@@ -1,6 +1,4 @@
-using System.Reflection;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GuessGridPresenter
 {
@@ -18,12 +16,12 @@ public class GuessGridPresenter
         // Update the guess grid UI to show selected colors
         for (int i = 0; i < 3; i++)
         {
-            if (i < _guessGridView.guessGridSlots1.Length)
+            if (i < _guessGridView.GetGuessGridSlot(GameManager.instance.Attempts).Length)
             {
-                if (ColorfleGameManager.instance.selectedColorIndices[i] >= 0)
+                if (GameManager.instance.SelectedColorIndices[i] >= 0)
                 {
                     var color = _guessGridView.PaletteGridView.paletteColors[
-                        ColorfleGameManager.instance.selectedColorIndices[i]];
+                        GameManager.instance.SelectedColorIndices[i]];
                     color.a = 1;
                     _guessGridView.SetSlotColor(color, i);
                 }

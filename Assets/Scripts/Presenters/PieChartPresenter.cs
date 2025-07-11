@@ -12,7 +12,7 @@ public class PieChartPresenter
     public void SetGuessColors(Color color)
     {
         color.a = 1;
-        _view.SetGuessColors(color, ColorfleGameManager.instance.CurrentIndex++);
+        _view.SetGuessColors(color, GameManager.instance.CurrentIndex++);
     }
 
     public void SetTargetAndResetGuess(Color targetColor)

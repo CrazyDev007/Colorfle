@@ -14,9 +14,24 @@ public class GuessGridView : MonoBehaviour
     public Image[] guessGridSlots4;
     public Image[] guessGridSlots5;
 
+    public Image[] guessGridSlotsMix;
+
     private GuessGridPresenter _presenter;
 
     [SerializeField] private GameplayScreen gameplayScreen;
+
+    public Image[] GetGuessGridSlot(int attempt)
+    {
+        return attempt switch
+        {
+            0 => guessGridSlots0,
+            1 => guessGridSlots1,
+            2 => guessGridSlots2,
+            3 => guessGridSlots3,
+            4 => guessGridSlots4,
+            _ => guessGridSlots5
+        };
+    }
 
     public PaletteGridView PaletteGridView => mPaletteGridView;
 
@@ -27,7 +42,7 @@ public class GuessGridView : MonoBehaviour
 
     public void SetSlotColor(Color color, int index)
     {
-        guessGridSlots1[index].color = color;
+        GetGuessGridSlot(GameManager.instance.Attempts)[index].color = color;
     }
 
     public void UpdateGuessGridUI()

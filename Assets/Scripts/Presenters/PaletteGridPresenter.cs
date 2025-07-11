@@ -15,7 +15,7 @@ public class PaletteGridPresenter
     // Call this from the palette color button's OnClick event, passing the color index
     public void OnPaletteColorClicked(int colorIndex)
     {
-        var gameManger = ColorfleGameManager.instance;
+        var gameManger = GameManager.instance;
         if (gameManger.CurrentIndex >= 3)
         {
             Debug.Log("You can only select 3 colors.");
@@ -25,7 +25,7 @@ public class PaletteGridPresenter
         // Prevent duplicate selection
         for (int i = 0; i <= gameManger.CurrentIndex; i++)
         {
-            if (ColorfleGameManager.instance.selectedColorIndices[i] == colorIndex)
+            if (GameManager.instance.SelectedColorIndices[i] == colorIndex)
             {
                 Debug.Log("Color already selected.");
                 return;
@@ -33,7 +33,7 @@ public class PaletteGridPresenter
         }
 
 
-        ColorfleGameManager.instance.selectedColorIndices[gameManger.CurrentIndex] = colorIndex;
+        GameManager.instance.SelectedColorIndices[gameManger.CurrentIndex] = colorIndex;
         // Call PieChart.SetGuessColors with the selected color
         var color = _paletteGridView.paletteColors[colorIndex];
         _gameplayScreen.Notify(_paletteGridView, GameplayEvent.PaletteColorClicked, color);

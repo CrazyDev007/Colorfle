@@ -31,6 +31,14 @@ public class PieChartView : MonoBehaviour
         }
     }
 
+    public void ResetGuessColors(Color mixColor)
+    {
+        foreach (var img in guessImage)
+        {
+            img.color = mixColor;
+        }
+    }
+
     public void SetTargetAndResetGuess(Color targetColor)
     {
         _pieChartPresenter.SetTargetAndResetGuess(targetColor);

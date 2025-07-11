@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -7,9 +8,11 @@ public class GameplayScreen : MonoBehaviour, IGameplayMediator
 {
     public static GameplayScreen instance;
 
-    public ColorfleGameManager gameManager;
+    public GameManager gameManager;
     public Button submitButton;
     public TextMeshProUGUI statusText;
+
+    private Color targetColor;
 
     // all the view reference
     [FormerlySerializedAs("colorSelector")]
@@ -30,21 +33,62 @@ public class GameplayScreen : MonoBehaviour, IGameplayMediator
         }
     }
 
-    void Start()
+    private void Start()
     {
-        if (pieChartView != null && paletteGridView != null)
-        {
-            var targetColor = paletteGridView.GetTargetColor();
-            pieChartView.SetTargetAndResetGuess(targetColor);
-        }
-
+        targetColor = paletteGridView.GetTargetColor();
+        pieChartView.SetTargetAndResetGuess(targetColor);
+        //
         submitButton.onClick.AddListener(OnSubmitGuess);
         gameManager.onGameOver.AddListener(OnGameOver);
     }
 
-    void OnSubmitGuess()
+    public void ResetGame(Color mixColor)
     {
-        ColorfleGameManager.instance.OnSubmitGuess();
+        pieChartView.ResetGuessColors(mixColor);
+        gameManager.CurrentIndex = 0;
+    }
+
+    private void OnSubmitGuess()
+    {
+        // Collect selected colors
+        var guessColors = new Color[3];
+        var selected = 0;
+        for (var i = 0; i < 3; i++)
+        {
+            if (gameManager.SelectedColorIndices[i] >= 0)
+            {
+                guessColors[i] = paletteGridView.paletteColors[gameManager.SelectedColorIndices[i]];
+                selected++;
+            }
+            else
+            {
+                guessColors[i] = Color.white;
+            }
+        }
+
+        if (selected < 3)
+        {
+            Debug.Log("Please select 3 colors before submitting your guess.");
+            return;
+        }
+
+        // Calculate total percentage and compare with target
+        var targetMixColor = paletteGridView.GetMixColor(guessColors);
+        if (targetColor != targetMixColor)
+        {
+            targetMixColor.a = 1;
+            guessGridView.guessGridSlotsMix[gameManager.Attempts++].color = targetMixColor;
+            gameManager.onWrongGuess?.Invoke();
+            ResetGame(targetMixColor);
+            Debug.Log($"guess color ({targetMixColor}%) does not match target color ({targetColor}%).");
+            return;
+        }
+
+        targetMixColor.a = 1;
+        guessGridView.guessGridSlotsMix[gameManager.Attempts++].color = targetMixColor;
+        gameManager.onGameOver?.Invoke(true);
+        ResetGame(targetMixColor);
+        Debug.Log($"Guess submitted. Resulting color: {targetMixColor}");
     }
 
     private void OnGameOver(bool won)
@@ -55,13 +99,12 @@ public class GameplayScreen : MonoBehaviour, IGameplayMediator
 
     public void OnDeleteLastGuessColor()
     {
-        var gameManager = ColorfleGameManager.instance;
         if (gameManager.CurrentIndex <= 0)
             return;
         gameManager.CurrentIndex -= 1;
-        ColorfleGameManager.instance.selectedColorIndices[gameManager.CurrentIndex] = -1;
+        GameManager.instance.SelectedColorIndices[gameManager.CurrentIndex] = -1;
         // Reset the corresponding guess grid slot
-        guessGridView.guessGridSlots1[gameManager.CurrentIndex].color = Color.white;
+        guessGridView.GetGuessGridSlot(GameManager.instance.Attempts)[gameManager.CurrentIndex].color = Color.white;
         // Reset the pie chart guess index and re-apply remaining colors
         pieChartView.SetGuessColors(Color.gray, gameManager.CurrentIndex);
     }
@@ -71,10 +114,12 @@ public class GameplayScreen : MonoBehaviour, IGameplayMediator
         switch (eventCode)
         {
             case GameplayEvent.PaletteColorClicked:
-                pieChartView.SetGuessColors((Color)selectedColor, ColorfleGameManager.instance.CurrentIndex);
+                pieChartView.SetGuessColors((Color)selectedColor, GameManager.instance.CurrentIndex);
                 guessGridView.UpdateGuessGridUI();
-                ColorfleGameManager.instance.CurrentIndex += 1;
+                GameManager.instance.CurrentIndex += 1;
                 break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(eventCode), eventCode, null);
         }
     }
 }
