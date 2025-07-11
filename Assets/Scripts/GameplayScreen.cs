@@ -46,6 +46,7 @@ public class GameplayScreen : MonoBehaviour, IGameplayMediator
     {
         pieChartView.ResetGuessColors(mixColor);
         gameManager.CurrentIndex = 0;
+        GameManager.instance.Attempts++;
     }
 
     private void OnSubmitGuess()
@@ -76,16 +77,18 @@ public class GameplayScreen : MonoBehaviour, IGameplayMediator
         var targetMixColor = paletteGridView.GetMixColor(guessColors);
         if (targetColor != targetMixColor)
         {
+            guessGridView.OnWrongGuess();
             targetMixColor.a = 1;
-            guessGridView.guessGridSlotsMix[gameManager.Attempts++].color = targetMixColor;
+            guessGridView.guessGridSlotsMix[gameManager.Attempts].SetSlotColor(targetMixColor);
             gameManager.onWrongGuess?.Invoke();
+            //
             ResetGame(targetMixColor);
             Debug.Log($"guess color ({targetMixColor}%) does not match target color ({targetColor}%).");
             return;
         }
 
         targetMixColor.a = 1;
-        guessGridView.guessGridSlotsMix[gameManager.Attempts++].color = targetMixColor;
+        guessGridView.guessGridSlotsMix[gameManager.Attempts].SetSlotColor(targetMixColor);
         gameManager.onGameOver?.Invoke(true);
         ResetGame(targetMixColor);
         Debug.Log($"Guess submitted. Resulting color: {targetMixColor}");
@@ -104,7 +107,8 @@ public class GameplayScreen : MonoBehaviour, IGameplayMediator
         gameManager.CurrentIndex -= 1;
         GameManager.instance.SelectedColorIndices[gameManager.CurrentIndex] = -1;
         // Reset the corresponding guess grid slot
-        guessGridView.GetGuessGridSlot(GameManager.instance.Attempts)[gameManager.CurrentIndex].color = Color.white;
+        guessGridView.GetGuessGridSlot(GameManager.instance.Attempts)[gameManager.CurrentIndex]
+            .SetSlotColor(Color.white);
         // Reset the pie chart guess index and re-apply remaining colors
         pieChartView.SetGuessColors(Color.gray, gameManager.CurrentIndex);
     }

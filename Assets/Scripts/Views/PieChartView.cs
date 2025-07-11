@@ -17,6 +17,11 @@ public class PieChartView : MonoBehaviour
 
     public void SetGuessColors(Color color, int currentIndex)
     {
+        if (currentIndex <= 0)
+        {
+            ResetGuessColors(Color.gray);
+        }
+
         color.a = 1;
         guessImage[currentIndex].color = color;
     }

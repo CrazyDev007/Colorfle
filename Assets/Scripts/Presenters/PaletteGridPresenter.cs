@@ -56,6 +56,7 @@ public class PaletteGridPresenter
 
         foreach (var guessColor in guessIndex)
             Debug.Log(guessColor);
+        GameManager.instance.TargetColorIndices = guessIndex.ToArray();
         _paletteGridView.targetColor = GetMixColor(guessColors.ToArray());
         return _paletteGridView.targetColor;
     }

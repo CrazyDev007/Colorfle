@@ -1,26 +1,25 @@
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public class GuessGridView : MonoBehaviour
 {
     [FormerlySerializedAs("mColorSelector")] [SerializeField]
     private PaletteGridView mPaletteGridView;
 
-    public Image[] guessGridSlots0;
-    public Image[] guessGridSlots1;
-    public Image[] guessGridSlots2;
-    public Image[] guessGridSlots3;
-    public Image[] guessGridSlots4;
-    public Image[] guessGridSlots5;
+    public GuessGridSlotView[] guessGridSlots0;
+    public GuessGridSlotView[] guessGridSlots1;
+    public GuessGridSlotView[] guessGridSlots2;
+    public GuessGridSlotView[] guessGridSlots3;
+    public GuessGridSlotView[] guessGridSlots4;
+    public GuessGridSlotView[] guessGridSlots5;
 
-    public Image[] guessGridSlotsMix;
+    public GuessGridSlotView[] guessGridSlotsMix;
 
     private GuessGridPresenter _presenter;
 
     [SerializeField] private GameplayScreen gameplayScreen;
 
-    public Image[] GetGuessGridSlot(int attempt)
+    public GuessGridSlotView[] GetGuessGridSlot(int attempt)
     {
         return attempt switch
         {
@@ -42,11 +41,45 @@ public class GuessGridView : MonoBehaviour
 
     public void SetSlotColor(Color color, int index)
     {
-        GetGuessGridSlot(GameManager.instance.Attempts)[index].color = color;
+        GetGuessGridSlot(GameManager.instance.Attempts)[index].SetSlotColor(color);
     }
 
     public void UpdateGuessGridUI()
     {
         _presenter.UpdateGuessGridUI();
+    }
+
+    public void OnWrongGuess()
+    {
+        var guessGridSlots = GetGuessGridSlot(GameManager.instance.Attempts);
+        var targetColorIndices = GameManager.instance.TargetColorIndices;
+        var selectedColorIndices = GameManager.instance.SelectedColorIndices;
+        for (var i = 0; i < selectedColorIndices.Length; i++)
+        {
+            var colorIndex = -1;
+            for (var j = 0; j < targetColorIndices.Length; j++)
+            {
+                if (selectedColorIndices[i] == targetColorIndices[j])
+                {
+                    colorIndex = j;
+                }
+            }
+
+            var guessGridSlot = guessGridSlots[i];
+            if (colorIndex == -1)
+            {
+                guessGridSlot.SetBorderImageActive(false);
+            }
+            else if (i == colorIndex)
+            {
+                guessGridSlot.SetBorderImageActive(true);
+                guessGridSlot.SetBorderColor(Color.green);
+            }
+            else
+            {
+                guessGridSlot.SetBorderImageActive(true);
+                guessGridSlot.SetBorderColor(Color.yellow);
+            }
+        }
     }
 }

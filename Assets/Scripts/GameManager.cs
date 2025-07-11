@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
     public int CurrentIndex { get; set; }
     public int Attempts { get; set; }
 
-    public int[] SelectedColorIndices { get; } = new int[3] { -1, -1, -1 };
+    public int[] SelectedColorIndices { get; set; } = new int[3] { -1, -1, -1 };
+    public int[] TargetColorIndices { get; set; } = new int[3] { -1, -1, -1 };
 
     [FormerlySerializedAs("colorSelector")]
     public PaletteGridView paletteGridView;
