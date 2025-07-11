@@ -5,7 +5,12 @@ using UnityEngine.UI;
 
 public class PaletteGridView : MonoBehaviour
 {
-    [FormerlySerializedAs("gameplayScreenMediatorMediator")] [FormerlySerializedAs("gameplayScreenMediator")] [FormerlySerializedAs("mediator")] [SerializeField] private GameplayScreen gameplayScreen;
+    [FormerlySerializedAs("gameplayScreenMediatorMediator")]
+    [FormerlySerializedAs("gameplayScreenMediator")]
+    [FormerlySerializedAs("mediator")]
+    [SerializeField]
+    private GameplayScreen gameplayScreen;
+
     public Image[] paletteButtons; // Assign palette button images in Inspector
     public Color targetColor;
 
@@ -29,17 +34,33 @@ public class PaletteGridView : MonoBehaviour
 
     public void SetPaletteButtonColors()
     {
+        ShuffleColors();
         for (var i = 0; i < paletteButtons.Length && i < paletteColors.Count; i++)
         {
+            //set color to palette button
             var color = paletteColors[i];
             color.a = 1;
             paletteButtons[i].color = color;
         }
     }
 
+    public void ShuffleColors()
+    {
+        for (var i = 0; i < paletteButtons.Length && i < paletteColors.Count; i++)
+        {
+            var shuffleColorIndex = Random.Range(0, paletteColors.Count);
+            (paletteColors[i], paletteColors[shuffleColorIndex]) = (paletteColors[shuffleColorIndex], paletteColors[i]);
+        }
+    }
+
     public Color GetTargetColor()
     {
         return _paletteGridPresenter.GetTargetColor();
+    }
+
+    public void OnRestartGame()
+    {
+        SetPaletteButtonColors();
     }
 
     public Color GetMixColor(Color[] guessedColors)

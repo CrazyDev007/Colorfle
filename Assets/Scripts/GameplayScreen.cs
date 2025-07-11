@@ -1,16 +1,15 @@
 using System;
-using TMPro;
+using MB;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
-public class GameplayScreen : MonoBehaviour, IGameplayMediator
+public class GameplayScreen : UIScreen, IGameplayMediator
 {
     public static GameplayScreen instance;
 
     public GameManager gameManager;
     public Button submitButton;
-    public TextMeshProUGUI statusText;
 
     private Color targetColor;
 
@@ -47,6 +46,10 @@ public class GameplayScreen : MonoBehaviour, IGameplayMediator
         pieChartView.ResetGuessColors(mixColor);
         gameManager.CurrentIndex = 0;
         GameManager.instance.Attempts++;
+        if (GameManager.instance.Attempts >= 6)
+        {
+            GameManager.instance.onGameOver?.Invoke(false);
+        }
     }
 
     private void OnSubmitGuess()
@@ -91,12 +94,12 @@ public class GameplayScreen : MonoBehaviour, IGameplayMediator
         guessGridView.guessGridSlotsMix[gameManager.Attempts].SetSlotColor(targetMixColor);
         gameManager.onGameOver?.Invoke(true);
         ResetGame(targetMixColor);
+        UIManager.Instance.ShowScreen(UIScreenType.Win);
         Debug.Log($"Guess submitted. Resulting color: {targetMixColor}");
     }
 
     private void OnGameOver(bool won)
     {
-        statusText.text = won ? "You Win!" : "Game Over!";
         submitButton.interactable = false;
     }
 
@@ -125,5 +128,18 @@ public class GameplayScreen : MonoBehaviour, IGameplayMediator
             default:
                 throw new ArgumentOutOfRangeException(nameof(eventCode), eventCode, null);
         }
+    }
+
+    public void OnRestartGame()
+    {
+        //reset palette grid
+        paletteGridView.OnRestartGame();
+        //reset pie chart
+        targetColor = paletteGridView.GetTargetColor();
+        pieChartView.OnRestartGame(targetColor);
+        //reset guess grid
+        guessGridView.OnRestartGame();
+        //
+        submitButton.interactable = true;
     }
 }

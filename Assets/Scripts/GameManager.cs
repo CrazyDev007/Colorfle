@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("Event fired when the game ends.")]
     public UnityEvent<bool> onGameOver;
 
+    public UnityEvent onRestartGame;
     public UnityEvent onWrongGuess;
 
     public int CurrentIndex { get; set; }
@@ -42,6 +43,22 @@ public class GameManager : MonoBehaviour
         {
             SelectedColorIndices[i] = -1;
         }
+    }
+
+    public void RestartGame()
+    {
+        for (int i = 0; i < SelectedColorIndices.Length; i++)
+        {
+            SelectedColorIndices[i] = -1;
+        }
+
+        Attempts = 0;
+        onRestartGame?.Invoke();
+    }
+
+    public void OnQuitGame()
+    {
+        Application.Quit();
     }
 
     private bool ColorsEqual(Color a, Color b)

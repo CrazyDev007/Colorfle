@@ -49,6 +49,45 @@ public class GuessGridView : MonoBehaviour
         _presenter.UpdateGuessGridUI();
     }
 
+    public void OnRestartGame()
+    {
+        foreach (var slotView in guessGridSlots0)
+        {
+            slotView.ResetView();
+        }
+
+        foreach (var slotView in guessGridSlots1)
+        {
+            slotView.ResetView();
+        }
+
+        foreach (var slotView in guessGridSlots2)
+        {
+            slotView.ResetView();
+        }
+
+        foreach (var slotView in guessGridSlots3)
+        {
+            slotView.ResetView();
+        }
+
+        foreach (var slotView in guessGridSlots4)
+        {
+            slotView.ResetView();
+        }
+
+        foreach (var slotView in guessGridSlots5)
+        {
+            slotView.ResetView();
+        }
+
+        //
+        foreach (var slotView in guessGridSlotsMix)
+        {
+            slotView.ResetView();
+        }
+    }
+
     public void OnWrongGuess()
     {
         var guessGridSlots = GetGuessGridSlot(GameManager.instance.Attempts);

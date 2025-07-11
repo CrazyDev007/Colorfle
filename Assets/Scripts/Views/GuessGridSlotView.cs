@@ -22,4 +22,10 @@ public class GuessGridSlotView : MonoBehaviour
     {
         borderImage.color = color;
     }
+
+    public void ResetView()
+    {
+        SetSlotColor(Color.white);
+        SetBorderImageActive(false);
+    }
 }

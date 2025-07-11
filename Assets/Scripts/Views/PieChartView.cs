@@ -49,6 +49,11 @@ public class PieChartView : MonoBehaviour
         _pieChartPresenter.SetTargetAndResetGuess(targetColor);
     }
 
+    public void OnRestartGame(Color targetColor)
+    {
+        SetTargetAndResetGuess(targetColor);
+    }
+
     public void SetGuessColor(Color guessColor)
     {
         _pieChartPresenter.SetGuessColors(guessColor);
